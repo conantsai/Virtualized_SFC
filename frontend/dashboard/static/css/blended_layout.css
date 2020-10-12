@@ -1,0 +1,154 @@
+*{
+padding : 0;
+margin : 0;
+border : 0;
+}
+body{
+background-image : url(' bi-background-waves.png ');
+background-attachment : fixed;
+background-size : 100% auto;
+}
+.blended_grid{
+display : block;
+width : 700px;
+/*overflow : auto;*/
+/*margin : 30px auto 0 auto;*/
+}
+.pageHeader{
+float : left;
+clear : none;
+height : 100px;
+width : 700px;
+}
+.pageContent{
+float : left;
+clear : none;
+height : 300px;
+width : 500px;
+}
+.pageLeftMenu{
+float : left;
+clear : none;
+height : 300px;
+width : 200px;
+}
+/*
+.pageHeader{
+background-color : rgba(0, 0, 0, 0.5);
+float : left;
+clear : none;
+height : 200px;
+width : 900px;
+}
+.pageContent{
+background-color : rgba(0, 0, 0, 0.5);
+float : left;
+clear : none;
+height : 600px;
+width : 700px;
+}
+.pageLeftMenu{
+background-color : rgba(0, 0, 0, 0.5);
+float : left;
+clear : none;
+height : 600px;
+width : 200px;
+}
+.pageFooter{
+background-color : rgba(0, 0, 0, 0.5);
+float : left;
+clear : none;
+height : 100px;
+width : 900px;
+}
+.pageHeader{
+background-color : rgba(0, 0, 0, 0.5);
+float : left;
+clear : none;
+height : 200px;
+width : 900px;
+}
+.pageContent{
+background-color : rgba(0, 0, 0, 0.5);
+float : left;
+clear : none;
+height : 600px;
+width : 700px;
+}
+.pageLeftMenu{
+background-color : rgba(0, 0, 0, 0.5);
+float : left;
+clear : none;
+height : 600px;
+width : 200px;
+}
+.pageFooter{
+background-color : rgba(0, 0, 0, 0.5);
+float : left;
+clear : none;
+height : 100px;
+width : 900px;
+}
+/*
+.pageHeader{
+float : left;
+clear : none;
+height : 200px;
+width : 900px;
+}
+.pageContent{
+float : left;
+clear : none;
+height : 600px;
+width : 700px;
+}
+.pageLeftMenu{
+float : left;
+clear : none;
+height : 600px;
+width : 200px;
+}
+.pageFooter{
+float : left;
+clear : none;
+height : 100px;
+width : 900px;
+}
+.pageHeader{
+float : left;
+clear : none;
+height : 100px;
+width : 900px;
+}
+.pageContent{
+float : left;
+clear : none;
+height : 600px;
+width : 700px;
+}
+.pageLeftMenu{
+float : left;
+clear : none;
+height : 600px;
+width : 200px;
+}
+.pageHeader{
+float : left;
+clear : none;
+height : 100px;
+width : 700px;
+}
+.pageContent{
+float : left;
+clear : none;
+height : 300px;
+width : 500px;
+}
+.pageLeftMenu{
+float : left;
+clear : none;
+height : 300px;
+width : 200px;
+}
+*/
+

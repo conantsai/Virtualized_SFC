@@ -1,0 +1,16 @@
+.background
+{
+	position: relative;
+	background-image: url(../img/background.jpg);
+	min-height: 35rem;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-attachment: scroll fixed;
+	background-size: 100% 100%;
+
+	margin:0;
+	padding:0;
+	background: #000 url(../img/background.jpg) center center fixed no-repeat;
+	-moz-background-size: cover;
+	background-size: cover;
+}

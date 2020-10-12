@@ -1,0 +1,202 @@
+{% load dict_key %}
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Bootstrap core CSS -->
+    <link href="/static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<style type="text/css">
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+
+/*Page styles*/
+html { height: 100%; }
+
+.fwlist th,td {
+    width: 60px;
+}
+.fwlist th:nth-child(3),td:nth-child(3) {
+    width: 80px !important;
+}
+.fwlist th:nth-child(4),td:nth-child(4) {
+    width: 125px !important;
+}
+.fwlist th:nth-child(5),td:nth-child(5),th:nth-child(6),td:nth-child(6) {
+    width: 90px !important;
+}
+.fwlist th:nth-child(7),td:nth-child(7),th:nth-child(8),td:nth-child(8) {
+    width: 280px !important;
+}
+.fwlist th:nth-child(9),td:nth-child(9) {
+    width: 115px !important;
+}
+.fwlist th:nth-child(10),td:nth-child(10) {
+    width: 130px !important;
+}
+.fwlist th:nth-child(11),td:nth-child(11) {
+    width: calc(100vw - 1310px) !important;
+}
+
+/*Checkboxes styles*/
+input[type="checkbox"] { display: none; }
+
+input[type="checkbox"] + label {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 20px;
+  font: 14px/20px 'Open Sans', Arial, sans-serif;
+  color: #ddd;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+input[type="checkbox"] + label:last-child { margin-bottom: 0; }
+
+input[type="checkbox"] + label:before {
+  content: '';
+  display: block;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #000000;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: .6;
+  -webkit-transition: all .12s, border-color .08s;
+  transition: all .12s ,border-color .08s;
+}
+
+input[type="checkbox"]:checked + label:before {
+  width: 10px;
+  top: -5px;
+  left: 5px;
+  border-radius: 0;
+  opacity: 1;
+  border-top-color: transparent;
+  border-left-color: transparent;
+  border-right-color: #FF3333;
+  border-bottom-color: #FF3333;
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+#gotop {
+    position: fixed;
+    border-radius: 50px;
+    right: 20px;
+    bottom: 30px;
+    padding: 10px 16px;
+    font-size: 25px;
+    background:  #FF3333;
+    color: 	#FFFFFF;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+</style>
+<body style="overflow:hidden">
+    <form action="/fwaction/" method="post">
+    {% csrf_token %}
+	<div style=text-align:right>
+	    <span>
+				{{ result }}
+				{% if Counter == 0 %}
+                    <img src="/static/img/correct_mark.png">
+                {% elif Counter > 0 %}
+                    <img src="/static/img/cancel_mark.png">
+				{% else %}
+                    <img src="/static/img/nothing_mark.png">
+				{% endif %}
+	    </span>
+	    <input  type="submit" name="AddPage" class="btn btn-warning"  value="Add" style="font-size:20px;" >
+        <input type="submit" name="Delete" class="btn btn-danger"  value="Delete" style="font-size:20px;">
+    </div>
+	
+    <table class="table table-hover fwlist">
+        <thead style="display:block;">
+            <tr style="background-color: #fffacd">
+                <th></th>
+                <th>id</th>
+                <th>table</th>
+                <th>chain_name</th>
+                <th>target</th>
+                <th>protocol</th>
+                <th>src</th>
+                <th>dst</th>
+                <th>interface_in</th>
+                <th>interface_out</th>
+                <th>matches</th>
+            </tr>
+        </thead>
+        <tbody style="height:700px;overflow:auto;display:block">
+        {% for firewall_col in firewall_list %}
+            <tr>
+                <td>
+		            <input type="checkbox" name="delete" id={{firewall_col.id}}  value={{firewall_col.id}}>
+		            <label for="{{firewall_col.id}}"></label>
+	            </td>
+	            <td><input type="hidden" name="id" value={{firewall_col.id}}>{{ firewall_col.id }}</td>
+                <td><input type="hidden" name="table" value={{firewall_col.table}}>{{ firewall_col.table }}</td>
+                <td><input type="hidden" name="chain_name" value={{firewall_col.chain_name}}>{{ firewall_col.chain_name }}</td>
+                <td><input type="hidden" name="target" value={{firewall_col.target}}>{{ firewall_col.target }}</td>
+                <td><input type="hidden" name="protocol" value={{firewall_col.protocol}}>{{ firewall_col.protocol }}</td>
+                <td><input type="hidden" name="src" value={{firewall_col.src}}>{{ firewall_col.src }}</td>
+                <td><input type="hidden" name="dst" value={{firewall_col.dst}}>{{ firewall_col.dst }}</td>
+                <td><input type="hidden" name="interface_in" value={{firewall_col.interface_in}}>{{ firewall_col.interface_in }}</td>
+                <td><input type="hidden" name="interface_out" value={{firewall_col.interface_out}}>{{ firewall_col.interface_out }}</td>
+                <td>
+                    <input type="hidden" name="matches" value="{{firewall_col.matches}}">
+                    {% if firewall_col.matches != "None" %}
+                        <ul>
+                            {% for match in firewall_col.matches %}
+                                <li>{{ match }}</li>
+                                <ul>
+                                    {% for param in firewall_col.matches|dict_key:match %}
+                                        {% for key in param %}
+                                            <li>{{ key }}: {{ param|dict_key:key }}</li>
+                                        {% endfor %}
+                                    {% endfor %}
+                                </ul>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        None
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    </form>
+    <div id="gotop">↑</div>
+        <!-- jquery JavaScript -->
+    <script src="/static/vendor/jquery/jquery.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script src="/static/vendor/bootstrap/js/bootstrap.min.js"></script>
+     <script>
+	     $("#gotop").click(function(){
+    jQuery("html,body").animate({
+        scrollTop:0
+    },1000);
+});
+$(window).scroll(function() {
+    if ( $(this).scrollTop() > 300){
+        $('#gotop').fadeIn("fast");
+    } else {
+        $('#gotop').stop().fadeOut("fast");
+    }
+});
+jQuery(document).ready(function() {
+   var windowHeight = $(window).height() - 50;
+  $('.fullScreenTable').css({ 'height': windowHeight+'px'});
+   $(window).resize(function() {
+     var windowHeight = $(window).height() - 50;
+    $('.fullScreenTable').css({'height': windowHeight+'px'});
+   });
+  $('.fullScreenTable').fixedHeaderTable({footer:false,cloneHeaderToFooter:true, autoResize:true, fixCol1:true});
+});
+     </script>
+</body>
+</html>

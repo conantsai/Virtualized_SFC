@@ -1,0 +1,15 @@
+[Unit]
+Description=Security Service Dashboard
+After=network-online.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/5g-dashboard/dashboard
+EnvironmentFile=/etc/environment
+ExecStart=/opt/5g-dashboard/dashboard/manage.py runserver 0.0.0.0:8000
+Restart=always
+RestartSec=15s
+
+[Install]
+WantedBy=multi-user.target

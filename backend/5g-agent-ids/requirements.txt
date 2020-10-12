@@ -1,0 +1,3 @@
+-e git://github.com/AlecJY/py-idstools.git#egg=idstools
+flask
+suricata-update

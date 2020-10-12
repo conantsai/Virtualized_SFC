@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->
+	<link rel="icon" type="image/png" href="/static/ADD/images/icons/favicon.ico"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/static/ADD/vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/static/ADD/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/static/ADD/fonts/iconic/css/material-design-iconic-font.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/static/ADD/vendor/animate/animate.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/static/ADD/vendor/css-hamburgers/hamburgers.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/static/ADD/vendor/animsition/css/animsition.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/static/ADD/vendor/select2/select2.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/static/ADD/vendor/daterangepicker/daterangepicker.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/static/ADD/vendor/noui/nouislider.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/static/ADD/css/util.css">
+	<link rel="stylesheet" type="text/css" href="/static/ADD/css/main.css">
+<!--===============================================================================================-->
+</head>
+<body>
+<!--  -------------------------------------------------->
+<form action="/fwaction/" method="post">{% csrf_token %}
+	<div class="container-contact100">
+		<div class="wrap-contact100">
+			<form class="contact100-form validate-form">
+				<span class="contact100-form-title">
+					Add Iptables Rule
+				</span>
+				
+				<div class="wrap-input100 input100-select bg1">
+					<span class="label-input100">Policy :</span>
+					<div>
+						<select type="text" class="js-select2" id="target" name="target">
+							<option value="ACCEPT">ACCEPT</option>
+		  				 	<option value="DROP">DROP</option>
+		  				  	<option value="REJECT">REJECT</option>
+						</select>
+						<div class="dropDownSelect2"></div>
+					</div>
+				</div>
+
+				<div class="wrap-input100 input100-select bg1">
+					<span class="label-input100">Table :</span>
+					<div>
+						<select type="text" class="js-select2" id="table" name="table" onchange="onTalbeChange()">
+							<option value="filter">filter</option>
+		  				 	<option value="mangle">mangle</option>
+						</select>
+						<div class="dropDownSelect2"></div>
+					</div>
+				</div>
+
+				<div class="wrap-input100 input100-select bg1">
+					<span class="label-input100">Chain :</span>
+					<div>
+						<select type="text" class="js-select2" id="chain" name="chain" disabled>
+							<option value="FORWARD">FORWARD</option>
+							<option value="PREROUTING">PREROUTING</option>
+						</select>
+						<div class="dropDownSelect2"></div>
+					</div>
+				</div>
+
+				<div class="wrap-input100 input100-select bg1">
+                    <span class="label-input100">Protocol :</span>
+                    <div>
+                        <select type="text"  class="js-select2" name="protocol">
+		  					<option value="TCP">tcp</option>
+		  					<option value="UDP">udp</option>
+                        </select>
+                        <div class="dropDownSelect2"></div>
+                    </div>
+                </div>
+				
+				<div class="wrap-input100 bg1 rs1-wrap-input100">
+                    <span class="label-input100">FROM IP :</span>
+                    <input class="input100" type="text" id="fromip" name="fromip" placeholder="IP">
+                    <span class="label-input100">FROM PORT :</span>
+                    <input class="input100" type="text" id="fromport" name="fromport" placeholder="Port">
+                </div>
+
+				<div class="wrap-input100 bg1 rs1-wrap-input100">
+                    <span class="label-input100">TO IP :</span>
+                    <input class="input100" type="text" id="toip" name="toip" placeholder="IP">
+                     <span class="label-input100">TO PORT :</span>
+                    <input class="input100" type="text" id="toport" name="toport" placeholder="Port" class="port">
+                </div>
+
+				<div class="wrap-input100 bg1">
+                    <span class="label-input100">Options :</span>
+                    <input class="input100" type="text" id="options" name="options">
+                </div>
+
+                <input type="submit" name="Return" class="btn btn-warning"  value="Return">
+				<input type="submit" name="Add" class="btn btn-danger"  value="Add Iptables Rule">
+
+			</form>
+		</div>
+	</div>
+</form>
+
+
+<!--===============================================================================================-->
+	<script src="/static/ADD/vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+	<script src="/static/ADD/vendor/animsition/js/animsition.min.js"></script>
+<!--===============================================================================================-->
+	<script src="/static/ADD/vendor/bootstrap/js/popper.js"></script>
+	<script src="/static/ADD/vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+	<script src="/static/ADD/vendor/select2/select2.min.js"></script>
+	<script>
+		$(".js-select2").each(function(){
+			$(this).select2({
+				minimumResultsForSearch: 20,
+				dropdownParent: $(this).next('.dropDownSelect2')
+			});
+
+
+			$(".js-select2").each(function(){
+				$(this).on('select2:close', function (e){
+					if($(this).val() == "Please chooses") {
+						$('.js-show-service').slideUp();
+					}
+					else {
+						$('.js-show-service').slideUp();
+						$('.js-show-service').slideDown();
+					}
+				});
+			});
+		})
+	</script>
+<!--===============================================================================================-->
+	<script src="/static/ADD/vendor/daterangepicker/moment.min.js"></script>
+	<script src="/static/ADD/vendor/daterangepicker/daterangepicker.js"></script>
+<!--===============================================================================================-->
+	<script src="/static/ADD/vendor/countdowntime/countdowntime.js"></script>
+<!--===============================================================================================-->
+	<script src="/static/ADD/vendor/noui/nouislider.min.js"></script>
+	<script>
+	    var filterBar = document.getElementById('filter-bar');
+
+	    noUiSlider.create(filterBar, {
+	        start: [ 1500, 3900 ],
+	        connect: true,
+	        range: {
+	            'min': 1500,
+	            'max': 7500
+	        }
+	    });
+
+	    var skipValues = [
+	    document.getElementById('value-lower'),
+	    document.getElementById('value-upper')
+	    ];
+
+	    filterBar.noUiSlider.on('update', function( values, handle ) {
+	        skipValues[handle].innerHTML = Math.round(values[handle]);
+	        $('.contact100-form-range-value input[name="from-value"]').val($('#value-lower').html());
+	        $('.contact100-form-range-value input[name="to-value"]').val($('#value-upper').html());
+	    });
+	</script>
+<!--===============================================================================================-->
+	<script src="/static/ADD/js/main.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-23581568-13');
+</script>
+
+
+<!-- User scripts -->
+<script>
+const onTalbeChange = () => {
+	if ($('#table').val() === 'filter') {
+		$('#chain').val('FORWARD');
+		$('#target').append('<option value="REJECT">REJECT</option>');
+	} else {
+		$('#chain').val('PREROUTING');
+		$('#target > [value="REJECT"]').remove();
+	}
+  $('#chain').select2().trigger('change');
+}
+</script>
+
+</body>
+</html>

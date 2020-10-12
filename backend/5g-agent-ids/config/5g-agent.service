@@ -1,0 +1,15 @@
+[Unit]
+Description=Secure Service Agent
+After=network-online.target suricata.service
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/5g-agent-ids
+EnvironmentFile=/etc/environment
+ExecStart=/opt/5g-agent-ids/startup.sh
+Restart=always
+RestartSec=15s
+
+[Install]
+WantedBy=multi-user.target

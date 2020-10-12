@@ -1,0 +1,169 @@
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->
+	<link rel="icon" type="image/png" href="/static/ADD/images/icons/favicon.ico"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/static/ADD/vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/static/ADD/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/static/ADD/fonts/iconic/css/material-design-iconic-font.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/static/ADD/vendor/animate/animate.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/static/ADD/vendor/css-hamburgers/hamburgers.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/static/ADD/vendor/animsition/css/animsition.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/static/ADD/vendor/select2/select2.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/static/ADD/vendor/daterangepicker/daterangepicker.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/static/ADD/vendor/noui/nouislider.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/static/ADD/css/util.css">
+	<link rel="stylesheet" type="text/css" href="/static/ADD/css/main.css">
+<!--===============================================================================================-->
+</head>
+<body>
+
+
+	<div class="container-contact100">
+		<div class="wrap-contact100">
+			<form action="/idsaction/" method="POST" class="contact100-form validate-form"> <!-- //////////////////////////////////////////////////////////////////////////Suricata Rule list -->
+				{% csrf_token %}
+				<span class="contact100-form-title">
+					INTRUSION DETECTION SYSTEM
+				</span>
+                
+
+				<div class="wrap-input100 validate-input bg0 rs1-alert-validate" data-validate = "Please Type Your Message">
+					<span class="label-input100">Add Rule</span>
+					<textarea class="input100" name="command" placeholder="Please Add Rule ...."></textarea>
+				</div>
+                                 
+
+				<div class="btn-toolbar" role="toolbar" style="margin: 0 auto;">
+                    <!--<button name="check" type="submit" value="Submit" class="btn btn-info btn-lg"  style="border:2px #007799 double;">Status</button>-->
+	                <button name="checkrule" type="submit" value="Submit" class="btn btn-info btn-lg" style="border:2px #007799 double;">Check</button>
+	                <!--<button name="start" type="submit" value="Submit" class="btn btn-info btn-lg" style="border:2px #007799 double;">Start</button>-->
+	                <!--<button name="restart" type="submit" value="Submit" class="btn btn-info btn-lg" style="border:2px #007799 double;">Restart</button>-->
+	                <button name="send" type="submit" value="Submit" class="btn btn-info btn-lg" style="border:2px #007799 double;">Submit</button>
+	                <button name="update" type="submit" value="Submit" class="btn btn-info btn-lg" style="border:2px #007799 double;">Update</button>
+			<button name="delete" type="submit" value="Submit" class="btn btn-info btn-lg" style="border:2px #007799 double;">Delete</button>
+
+				</div>
+			
+ 				<div class="wrap-contact100-form-range"></div>
+
+			       <div class="wrap-input100 validate-input bg0 rs1-alert-validate" data-validate = "Please Type Your Message">
+                                        <span class="label-input100">Suricata Rule 派送結果 :  {{ rlt }}</span>
+			       </div> <!-- //////////////////////////////////////////////////////////////////////////Suricata Rule 驗證 -->
+
+				<table class="table table-hover"  style="word-wrap:break-word;table-layout:fixed;" >
+   					<thead bgcolor=#DDDDDD>
+      						<tr>
+	      						<th class="text-center">Suricata Rule List</th>
+      						</tr>
+   					</thead>
+   					<tbody style="overflow:auto;display:block;">
+                            {% for Rrule in suricata_list %}
+        					<tr>
+			    				<td width="5%">
+                                				<div class="boxes">
+                                    				<input type="checkbox" name="delete_box" id={{Rrule.id}}  value={{Rrule.id}}>
+                                    				<label for={{Rrule.id}}></label>
+                                				</div>
+                            				</td>
+           						 <td width="95%"><input type="hidden" name="Idsrule" value="{{Rrule.rule}}">{{ Rrule.rule }}</td>
+
+       						</tr>
+       					    {% endfor %}  <!-- //////////////////////////////////////////////////////////////////////////Suricata Rule list -->
+    					</tbody>
+				</table>
+			</form>
+		</div>
+	</div>
+
+
+
+
+<!--===============================================================================================-->
+	<script src="/static/ADD/vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+	<script src="/static/ADD/vendor/animsition/js/animsition.min.js"></script>
+<!--===============================================================================================-->
+	<script src="/static/ADD/vendor/bootstrap/js/popper.js"></script>
+	<script src="/static/ADD/vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+	<script src="/static/ADD/vendor/select2/select2.min.js"></script>
+	<script>
+		$(".js-select2").each(function(){
+			$(this).select2({
+				minimumResultsForSearch: 20,
+				dropdownParent: $(this).next('.dropDownSelect2')
+			});
+
+
+			$(".js-select2").each(function(){
+				$(this).on('select2:close', function (e){
+					if($(this).val() == "Please chooses") {
+						$('.js-show-service').slideUp();
+					}
+					else {
+						$('.js-show-service').slideUp();
+						$('.js-show-service').slideDown();
+					}
+				});
+			});
+		})
+	</script>
+<!--===============================================================================================-->
+	<script src="/static/ADD/vendor/daterangepicker/moment.min.js"></script>
+	<script src="/static/ADD/vendor/daterangepicker/daterangepicker.js"></script>
+<!--===============================================================================================-->
+	<script src="/static/ADD/vendor/countdowntime/countdowntime.js"></script>
+<!--===============================================================================================-->
+	<script src="/static/ADD/vendor/noui/nouislider.min.js"></script>
+	<script>
+	    var filterBar = document.getElementById('filter-bar');
+
+	    noUiSlider.create(filterBar, {
+	        start: [ 1500, 3900 ],
+	        connect: true,
+	        range: {
+	            'min': 1500,
+	            'max': 7500
+	        }
+	    });
+
+	    var skipValues = [
+	    document.getElementById('value-lower'),
+	    document.getElementById('value-upper')
+	    ];
+
+	    filterBar.noUiSlider.on('update', function( values, handle ) {
+	        skipValues[handle].innerHTML = Math.round(values[handle]);
+	        $('.contact100-form-range-value input[name="from-value"]').val($('#value-lower').html());
+	        $('.contact100-form-range-value input[name="to-value"]').val($('#value-upper').html());
+	    });
+	</script>
+<!--===============================================================================================-->
+	<script src="js/main.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-23581568-13');
+</script>
+
+</body>
+</html>
